@@ -10,25 +10,51 @@ Data structure documentation can be found [here](https://drive.google.com/file/d
 # Usage
 ## Init
 Initial configuration will be done using the `init` command. Interactively fill in the client and the issuer information. This data will be saved under your home directory by default: `~/.invoicerender`. Override this using the `INVOICERENDER_HOME` environment variable.
-```bash
-invoicerender init
+```
+$ invoicerender init
+
+Please provide the following information for the invoicerender initial configuration:
+
+Header text: John Doe - Consulting
+Footer text: No VAT shall be requested for these services under the EU law ...
+Header logo: /tmp/images/logo.png
+
+Please profide the issuer's information:
+Name: John Doe
+Street name and number: Müsterman str. 123
+Post Code: 40123
+City: München
+Country: România
+VAT No.: DE01234567
+Bank name: ING
+IBAN: DE0123929838192389128907894567412
+Swift/BIC Code: COBADEFXXXX
+
+Client count: 2
+
+Client1 Information
+...
+
+Client2 Information
+...
+
 ```
 
 ## Issue
 
 Generate an invoice for a named client with just one billable service:
 ```bash
-invoicerender issue --client=<client name> \
-                    --item-description="Services provided last month" \
-                    --item-unit-price=100 \
-                    --item-currency=EUR \
-                    --item-quantity=21 \
-                    --item-vat-percentag=19
+$ invoicerender issue --client=<client name> \
+                      --item-description="Services provided last month" \
+                      --item-unit-price=100 \
+                      --item-currency=EUR \
+                      --item-quantity=21 \
+                      --item-vat-percentag=19
 ```
 
 Generate an invoice for a named client with multiple billabe items:
 ```bash
-invoicerender issue --client=<client name> --interactive --item-count=2
+$ invoicerender issue --client=<client name> --interactive --item-count=2
 
 item1 Description: Services provided last month
 item1 Unit Price: 100
