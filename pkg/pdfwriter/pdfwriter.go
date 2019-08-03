@@ -215,6 +215,14 @@ func WriteInvoicePDF(invoice *models.Invoice, outputPDFPath string) error {
 				p.Sprintf("%.2f €", providedService.TotalGross),
 			})
 	}
+
+	// We want to have at least 4 rows to make the invoice look pretty.
+	if len(billableItems) < 4 {
+		for i := 0; i < 4-len(billableItems); i++ {
+			billableItems = append(billableItems, []string{"", "", "", "", "", "", ""})
+		}
+	}
+
 	// Write the items that the invoice is generated for
 	// TODO: Limit the items to 10
 	writeTable(pdf, billableItems)
