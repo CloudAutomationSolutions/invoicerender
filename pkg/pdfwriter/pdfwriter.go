@@ -8,7 +8,7 @@ import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 
-	"github.com/CloudAutomationSolutions/invoicerender/models"
+	"github.com/CloudAutomationSolutions/invoicerender/pkg/models"
 )
 
 const (

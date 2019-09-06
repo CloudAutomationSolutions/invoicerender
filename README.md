@@ -11,7 +11,7 @@ Data structure documentation can be found [here](https://drive.google.com/file/d
 ## Init
 Initial configuration will be done using the `init` command. Interactively fill in the client and the issuer information. This data will be saved under your home directory by default: `~/.invoicerender`. Override this using the `INVOICERENDER_HOME` environment variable.
 ```
-$ invoicerender init
+$ invoicerender init --client-count=2
 
 Please provide the following information for the invoicerender initial configuration:
 
@@ -26,11 +26,10 @@ Post Code: 40123
 City: München
 Country: România
 VAT No.: DE01234567
+Income and sales tax number: 123456123456
 Bank name: ING
 IBAN: DE0123929838192389128907894567412
 Swift/BIC Code: COBADEFXXXX
-
-Client count: 2
 
 Client1 Information
 ...
@@ -42,14 +41,14 @@ Client2 Information
 
 ## Issue
 
-Generate an invoice for a named client with just one billable service:
+Generate an invoice for a named client with just one billable service. Use this when just one item description is required:
 ```bash
 $ invoicerender issue --client=<client name> \
                       --item-description="Services provided last month" \
                       --item-unit-price=100 \
                       --item-currency=EUR \
                       --item-quantity=21 \
-                      --item-vat-percentag=19
+                      --item-vat-percentage=19
 ```
 
 Generate an invoice for a named client with multiple billabe items:
