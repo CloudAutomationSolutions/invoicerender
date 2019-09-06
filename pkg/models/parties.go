@@ -2,6 +2,7 @@ package models
 
 // Client - The details of the party receiving the invoice.
 type Client struct {
+	ID        int      `yaml:"id"`
 	Name      string   `yaml:"name"`
 	Address   *Address `yaml:"address"`
 	VATNumber string   `yaml:"vat-number"`

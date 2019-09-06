@@ -39,6 +39,18 @@ Client2 Information
 
 ```
 
+## List
+Use to list items that have been provided or generated.
+
+### Clients
+List the registered clients
+```bash
+$ invoicerender list clients
+NAME       ID
+First      1
+Second     2 
+```
+
 ## Issue
 
 Generate an invoice for a named client with just one billable service. Use this when just one item description is required:
