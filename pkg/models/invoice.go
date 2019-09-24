@@ -13,11 +13,11 @@ type Invoice struct {
 	Client *Client `yaml:"client"`
 
 	Subject          []string           `yaml:"subject"`
-	ProvidedServices *[]ProvidedService `yaml:"provided-services"`
+	ProvidedServices []ProvidedService `yaml:"provided-services"`
 
-	TotalNetPrice   float32 `yaml:"total-net-price"`
-	TotalVATAmount  float32 `yaml:"total-vat-amount"`
-	TotalGrossPrice float32 `yaml:"total-gross-price"`
+	TotalNetPrice   float64 `yaml:"total-net-price"`
+	TotalVATAmount  float64 `yaml:"total-vat-amount"`
+	TotalGrossPrice float64 `yaml:"total-gross-price"`
 
 	Notes  string `yaml:"notes"`
 	Footer string `yaml:"footer"`

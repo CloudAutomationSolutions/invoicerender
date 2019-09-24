@@ -19,10 +19,10 @@ type Bank struct {
 type ProvidedService struct {
 	Name          string  `yaml:"name"`
 	Quantity      int     `yaml:"quantity"`
-	VATPercentage float32 `yaml:"vat-percentage"`
+	VATPercentage float64 `yaml:"vat-percentage"`
 
-	UnitPrice     float32 `yaml:"unit-price"`
-	TotalNetPrice float32 `yaml:"total-net-price"`
-	VATAmount     float32 `yaml:"vat-amount"`
-	TotalGross    float32 `yaml:"total-gross"`
+	UnitPrice     float64 `yaml:"unit-price"`
+	TotalNetPrice float64 `yaml:"total-net-price"`
+	VATAmount     float64 `yaml:"vat-amount"`
+	TotalGross    float64 `yaml:"total-gross"`
 }

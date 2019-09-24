@@ -46,7 +46,6 @@ invoicerender list clients
 		if err != nil {
 			return err
 		}
-
 		yaml.Unmarshal(configBytes, &config)
 
 		w := tabwriter.NewWriter(os.Stdout, 0, 8, 2, ' ', 0)

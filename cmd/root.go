@@ -25,7 +25,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var (
+	cfgFile   string
+	configDir string
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -63,7 +66,7 @@ func initConfig() {
 			fmt.Printf("Could not get user home directory: %s", err)
 			os.Exit(1)
 		}
-		configDir := filepath.Join(usr.HomeDir, ".config", "invoicerender")
+		configDir = filepath.Join(usr.HomeDir, ".config", "invoicerender")
 
 		cfgFile = filepath.Join(configDir, ".invoicerender.yaml")
 		// Search config in .config directory with name ".invoicerender" (without extension).
@@ -74,6 +77,7 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
+	// TODO: Print the opposite when we have an error.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}

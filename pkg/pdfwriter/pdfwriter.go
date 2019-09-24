@@ -43,7 +43,9 @@ func writeHeader(pdf *gofpdf.Fpdf, text, imagePath string) {
 	tr := pdf.UnicodeTranslatorFromDescriptor("cp1258")
 	pdf.CellFormat(100, 7, tr(text), "0", 0, "C", true, 0, "")
 
-	image(imagePath, pdf)
+	if len(imagePath) > 0 {
+		image(imagePath, pdf)
+	}
 }
 
 // writeLabel - writes a column based on a string array. Each entry is a cell.
@@ -135,7 +137,7 @@ func writeFooter(pdf *gofpdf.Fpdf, notes, footer string) {
 func WriteInvoicePDF(invoice *models.Invoice, outputPDFPath string) error {
 
 	// We are instantiating the main PDF object
-	pdf := gofpdf.New("P", "mm", "A4", "../font/literata")
+	pdf := gofpdf.New("P", "mm", "A4", "./font/literata")
 	pdf.AddPage()
 
 	// We are importing a font that supports latin charatcters. This PDF library we are using does not support utf-8. TTF files need to be compiled with the proper pages to get some characters.
@@ -202,7 +204,7 @@ func WriteInvoicePDF(invoice *models.Invoice, outputPDFPath string) error {
 
 	// Itterate over all the Provided services declared on the invoice an format them so that they look appropiate on the PDF
 	var billableItems [][]string
-	for _, providedService := range *invoice.ProvidedServices {
+	for _, providedService := range invoice.ProvidedServices {
 		billableItems = append(
 			billableItems,
 			[]string{
@@ -210,7 +212,7 @@ func WriteInvoicePDF(invoice *models.Invoice, outputPDFPath string) error {
 				strconv.Itoa(providedService.Quantity),
 				p.Sprintf("%.2f €", providedService.UnitPrice),
 				p.Sprintf("%.2f €", providedService.TotalNetPrice),
-				p.Sprintf("%d %", providedService.VATPercentage),
+				p.Sprintf("%.2f", providedService.VATPercentage),
 				p.Sprintf("%.2f €", providedService.VATAmount),
 				p.Sprintf("%.2f €", providedService.TotalGross),
 			})
