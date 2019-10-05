@@ -19,13 +19,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/CloudAutomationSolutions/invoicerender/pkg/models"
 	"github.com/spf13/cobra"
-	yaml "gopkg.in/yaml.v2"
 )
 
 // initCmd represents the init command
@@ -178,7 +176,7 @@ var initCmd = &cobra.Command{
 
 		}
 
-		err = writeConfig(&config)
+		err = config.WriteToDisk(cfgFile)
 		if err != nil {
 			return err
 		}
@@ -204,35 +202,4 @@ func getUserInput(prompt string) (string, error) {
 		return "", err
 	}
 	return strings.TrimSpace(text), nil
-}
-
-func writeConfig(config *models.Configuration) error {
-
-	// cfgFile is declared in root.go (same package). We ensure that it's directory exists
-	configDir := filepath.Dir(cfgFile)
-	err := os.MkdirAll(configDir, os.ModePerm)
-
-	if err == nil {
-		fmt.Printf("The cofiguration directory \"%s\" did not exist and was created\n", configDir)
-	} else if err != nil && !os.IsExist(err) {
-		return err
-	}
-
-	f, err := os.OpenFile(cfgFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	defer f.Close()
-
-	d, err := yaml.Marshal(&config)
-	if err != nil {
-		fmt.Println("Error Marshal to file...")
-		return err
-	}
-
-	fmt.Println("Writing yaml configuration to file")
-	_, err = f.Write(d)
-	if err != nil {
-		fmt.Println("Error while Writing to file")
-		return err
-	}
-
-	return nil
 }

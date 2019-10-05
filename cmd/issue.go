@@ -117,7 +117,9 @@ var issueCmd = &cobra.Command{
 		invoice.HeaderText = config.HeaderText
 		invoice.LogoPath = config.LogoPath
 
-		invoice.ID = fmt.Sprintf("%d/%d", config.LastUsedID+1, config.YearForLastUsedID)
+		invoiceID := config.LastUsedID + 1
+		invoice.ID = fmt.Sprintf("%d/%d", invoiceID, config.YearForLastUsedID)
+
 		invoice.IssueDate = time.Now().Format(layoutEU)
 		invoice.DueDate = time.Now().AddDate(0, 0, 25).Format(layoutEU) // We always add 25 days until the payment day
 
@@ -156,6 +158,14 @@ var issueCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+
+		// Update the last used ID in the config file and write it to disk
+		config.LastUsedID = invoiceID
+		err = config.WriteToDisk(cfgFile)
+		if err != nil {
+			return err
+		}
+
 		return nil
 	},
 }
