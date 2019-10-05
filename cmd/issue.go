@@ -172,8 +172,4 @@ func init() {
 	issueCmd.Flags().Int("item-unit-price", 0, "The base price for each item. Example --item-unit-price=500")
 	issueCmd.Flags().Int("item-quantity", 20, "The amount of units to be invoiced. Default: 20")
 	issueCmd.Flags().Int("item-vat-percentage", 19, "The amount of units to be invoiced. Default: 19")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// issueCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
