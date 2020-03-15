@@ -54,7 +54,7 @@ invoicerender list clients
 		case "clients":
 			fmt.Fprintln(w, "NAME\tID")
 			for _, client := range config.Clients {
-				fmt.Fprintf(w, "%s\t%d\n", client.Name, client.ID)
+				fmt.Fprintf(w, "%s\t%s\n", client.Name, client.ID)
 			}
 		}
 		w.Flush()

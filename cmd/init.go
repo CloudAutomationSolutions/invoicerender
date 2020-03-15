@@ -138,7 +138,10 @@ var initCmd = &cobra.Command{
 			var client models.Client
 			fmt.Printf("Configuration for client no. %d:\n\n", i+1)
 
-			client.ID = i + 1
+			client.ID, err = getUserInput("Client Identifier:")
+			if err != nil {
+				return err
+			}
 			client.Name, err = getUserInput("Name")
 			if err != nil {
 				return err

@@ -39,11 +39,11 @@ var issueCmd = &cobra.Command{
 	Use:   "issue",
 	Short: "Issue an invoice for a saved client",
 	PreRunE: func(cmd *cobra.Command, args []string) error {
-		clientID, err := cmd.Flags().GetInt("client-id")
+		clientID, err := cmd.Flags().GetString("client-id")
 		if err != nil {
 			return err
 		}
-		if clientID == 0 {
+		if clientID == "" {
 			return errors.New("please provide mandatory flag --client-id")
 		}
 
@@ -83,7 +83,7 @@ var issueCmd = &cobra.Command{
 
 		var config models.Configuration
 		var invoice models.Invoice
-		clientID, err := cmd.Flags().GetInt("client-id")
+		clientID, err := cmd.Flags().GetString("client-id")
 
 		itemQuantity, err := cmd.Flags().GetInt("item-quantity")
 		if err != nil {
@@ -176,7 +176,7 @@ func init() {
 	issueCmd.PersistentFlags().BoolP("interactive", "i", false, "Use this mode when multiple items need to be invoiced. An interactive prompt will ask the details for each")
 	issueCmd.PersistentFlags().Int("item-count", 0, "Use this in interactive mode when multiple items need to be invoiced. This will set the number of items to ask details for")
 
-	issueCmd.Flags().IntP("client-id", "c", 0, "The client name to generate the invoice for. Example --client-id=1")
+	issueCmd.Flags().StringP("client-id", "c", "e-client", "The client name to generate the invoice for. Example --client-id=e-client")
 	issueCmd.Flags().String("subject", "", "The invoice subect. Example --subject=\"Services for the SysOps role - 123 Project\"")
 	issueCmd.Flags().String("item-description", "", "Item or services to add to the invoice. Example --item-description=\"Services provided for the last month\"")
 	issueCmd.Flags().Int("item-unit-price", 0, "The base price for each item. Example --item-unit-price=500")
