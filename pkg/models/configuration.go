@@ -10,20 +10,20 @@ import (
 
 // Configuration - The information that will be stored in order to fill in the template and generate the invoices on demand.
 type Configuration struct {
-	HeaderText string `yaml:"header-text" dynamodbav:"header-text"`
-	LogoPath   string `yaml:"logo-path" dynamodbav:"logo-path"`
+	HeaderText string `json:"header-text" yaml:"header-text" dynamodbav:"header-text"`
+	LogoPath   string `json:"logo-path" yaml:"logo-path" dynamodbav:"logo-path"`
 
-	Issuer  *Issuer  `yaml:"issuer" dynamodbav:"issuer"`
-	Clients []Client `yaml:"clients" dynamodbav:"clients"`
+	Issuer  *Issuer  `json:"issuer" yaml:"issuer" dynamodbav:"issuer"`
+	Clients []Client `json:"clients" yaml:"clients" dynamodbav:"clients"`
 
-	LastUsedID int `yaml:"last-used-id" dynamodbav:"last-used-id"`
+	LastUsedID int `json:"last-used-id" yaml:"last-used-id" dynamodbav:"last-used-id"`
 	// The ID of an invoice is "x/y" where "x" is a number that increments with every use and "y" is the year. If a new year has come, we need to start x from 1, not LastUsedID.
-	YearForLastUsedID int `yaml:"year-for-last-used-id" dynamodbav:"year-for-last-used-id"`
+	YearForLastUsedID int `json:"year-for-last-used-id" yaml:"year-for-last-used-id" dynamodbav:"year-for-last-used-id"`
 
-	SavedNotes [][]string
-	Footer     string `yaml:"footer" dynamodbav:"footer"`
+	SavedNotes [][]string `json:"saved-notes" yaml:"saved-notes" dynamodbav:"saved-notes"`
+	Footer     string     `json:"footer" yaml:"footer" dynamodbav:"footer"`
 
-	OutputDirectory string `yaml:"output-directory" dynamodbav:"output-directory"`
+	OutputDirectory string `json:"output-directory" yaml:"output-directory" dynamodbav:"output-directory"`
 }
 
 // WriteToDisk - Write the configuration in place, where the specified configuration file is, to save it for later use
